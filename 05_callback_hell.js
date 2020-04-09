@@ -88,6 +88,43 @@ const getGreeting = (callback) => {
 // Make the appropriate calls to each function and handle any error
 
 const sayHello = () => {
+
+ getUser((err, userSays) => {
+
+    if (err) {
+      console.log(err);
+      return;
+    }
+
+    getGreeting((err, greeting) => {
+
+      if (err) {
+        console.log(err);
+        return;
+      }
+      
+      getUser((err, user) => {
+
+        if (err) {
+          console.log(err);
+          return;
+        }
+
+        console.log(`${userSays} says: ${greeting} ${user}`);
+
+      })
+      
+      
+    })
+
+ })
+
+
+
+  
+
+
+
 };
 
 sayHello();

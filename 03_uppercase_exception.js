@@ -1,12 +1,28 @@
 const upperCaseAsync = (inputStr, callback) => {
 
-  setTimeout(() =>{
+  console.log("Before setiTimeout"); //1
+  
 
-    callback(inputStr.toUpperCase())
-    undeclared; // triggering an error
+  setTimeout(() =>{ // 2
+
+    callback(inputStr.toUpperCase()) // 7
+    undeclared; // triggering an error // 8
+    return "Sponge Bob Return" // even if we return, it wont change anything. That value is returned to thin air
   }, 3000)
 
 
+  console.log("After SetTimeout"); //3
+
+  // return undefined; // 4
+  
+
 };
 
-upperCaseAsync('Sponge Bob', (upperCaseName) => console.log(upperCaseName));
+try {
+ upperCaseAsync('Sponge Bob', (upperCaseName) => console.log(upperCaseName)); // 5
+} catch(err) {
+  console.log("Error:", err);  
+}
+
+console.log("Continue Execution"); //6 
+
