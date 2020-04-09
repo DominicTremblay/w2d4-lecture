@@ -10,11 +10,11 @@
 ## Async flows with callbacks
 
 - We can use callbacks to handle async functions
-- Tradition error handling won't work with async functions
+- Tradition error handling won't work with async functions (cannot catch errors with try catch)
 - Multiple nested callbacks can lead to **callback hell**
 
 ## Using promises
 
 - Promises suggest a better syntax to handle callbacks
-- Multiple callbacks call lead to callback hell
-- Callbacks cannot catch errors with try catch
+- Multiple async calls can be handled more gracefully
+- Promise can either be **resolved** or **rejected**
