@@ -1,18 +1,23 @@
-const upperCaseAsync = (inputStr) => {
-  return new Promise((resolve, reject) => {
+// Let transforming this using promises
+
+const upperCaseAsync = (inputStr, callback) => {
+  setTimeout(() => {
     const error = false;
 
-    setTimeout(() => {
-      if (error) {
-        reject('Cannot convert to uppercase');
-      }
+    if (error) {
+      callback('cannot convert to uppercase');
+      return;
+    }
 
-      resolve(inputStr.toUpperCase());
-    }, 3000);
-  });
+    callback(null, inputStr.toUpperCase());
+  }, 3000);
 };
 
-upperCaseAsync('Sponge Bob')
-  .then((upperCaseName) => (`Hello ${upperCaseName}`))
-  .then(hello => console.log(hello))
-  .catch((err) => console.log('Error:', err));
+upperCaseAsync('Sponge Bob', (err, upperCaseName) => {
+  if (err) {
+    console.log('Error:', err);
+    return;
+  }
+
+  console.log(upperCaseName);
+});

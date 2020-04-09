@@ -1,12 +1,4 @@
-const upperCaseAsync = (inputStr, callback) => {
-
-  setTimeout(() =>{
-
-    callback(inputStr.toUpperCase())
-
-  }, 3000)
-
+const upperCaseAsync = () => {
 
 };
 
-upperCaseAsync('Sponge Bob', (upperCaseName) => console.log(upperCaseName));

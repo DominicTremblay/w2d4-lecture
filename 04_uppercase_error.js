@@ -1,21 +1,11 @@
 const upperCaseAsync = (inputStr, callback) => {
   setTimeout(() => {
-    const error = false;
+    const error = true; // trigerring an error
 
-    if (error) {
-      callback('cannot convert to uppercase');
-      return;
-    }
-
-    callback(null, inputStr.toUpperCase());
+    callback(inputStr.toUpperCase());
   }, 3000);
 };
 
-upperCaseAsync('Sponge Bob', (err, upperCaseName) => {
-  if (err) {
-    console.log('Error:', err);
-    return;
-  }
-
+upperCaseAsync('Sponge Bob', (upperCaseName) => {
   console.log(upperCaseName);
 });
