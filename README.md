@@ -29,7 +29,7 @@
 2. Fulfilled
 3. Rejected
 
-- [Promise States](./JavaScript-Promise-state.png)
+![Promise States](./JavaScript-Promise-state.png)
 
 
 ### 2 parts
