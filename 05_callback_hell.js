@@ -58,6 +58,7 @@ const getUser = (callback) => {
   const error = errorSample();
 
   console.log('Getting the user...');
+
   setTimeout(() => {
     if (error) {
       callback(error);
@@ -65,6 +66,8 @@ const getUser = (callback) => {
       callback(null, user);
     }
   }, 2000);
+
+  return undefined;
 };
 
 // Select a random greeting after a delay (simulating a request to an API)
@@ -105,7 +108,8 @@ const getGreeting = (callback) => {
 // Make the appropriate calls to each function and handle any error
 
 const sayHello = () => {
-  getUser((err, userSays) => {
+
+  getUser((err, user1) => {
     if (err) {
       console.log(err);
       return;
@@ -117,13 +121,13 @@ const sayHello = () => {
         return;
       }
 
-      getUser((err, user) => {
+      getUser((err, user2) => {
         if (err) {
           console.log(err);
           return;
         }
 
-        console.log(`${userSays} says: ${greeting} ${user}`);
+        console.log(`${user1} says: ${greeting} to: ${user2}`);
       });
     });
   });

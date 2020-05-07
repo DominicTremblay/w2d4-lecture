@@ -1,10 +1,13 @@
 const faker = require('faker');
 
 const getUser = () => {
+
+
   return new Promise((resolve, reject) => {
-    const error = 'Could not get the user';
 
     setTimeout(() => {
+      const error = '';
+
       const user = {
         userId: faker.random.uuid().substring(0, 6),
         avatar: faker.image.avatar(),
@@ -15,16 +18,22 @@ const getUser = () => {
 
       if (error) {
         reject(error);
-      } else {
-        resolve(user);
       }
+
+      resolve(user);
     }, 1000);
   });
 };
 
-// Consuming the promise
-getUser()
-  .then((user) => console.log(user))
-  .catch((err) => console.log(err));
+// Consume the promise
 
-console.log('Continue Execution...');
+getUser()
+  .then(user => {
+    // success case
+    console.log("Success",user);
+  })
+  .catch(err => {
+    console.log("catch", err);
+  })
+
+  console.log('promiseObj', promiseObj);

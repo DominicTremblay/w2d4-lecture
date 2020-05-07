@@ -2,7 +2,7 @@ const faker = require('faker');
 
 const getUser = (cb) => {
 
-  setTimeout(() => {
+  setTimeout(() => { // 3
 
     const user = {
       userId: faker.random.uuid().substring(0, 6),
@@ -21,10 +21,12 @@ const getUser = (cb) => {
   
 };
 
-try {
-  getUser((user) => console.log(user));
+
+try { // 1
+  getUser((user) => console.log(user)); //2
 } catch (err) {
+  // this is never triggered
   console.log(err);
 }
 
-console.log('Continue Execution...');
+console.log('Continue Execution...');//4

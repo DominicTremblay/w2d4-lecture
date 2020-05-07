@@ -9,9 +9,8 @@ const getUser = (cb) => {
     email: faker.internet.email(),
     catchPhrase: faker.company.catchPhrase(),
   }
-
-cb(user);
-  
+ 
+  cb(user);
 }
-
-getUser(user => console.log(user));
+  
+  console.log(getUser(user => console.log(user) ));

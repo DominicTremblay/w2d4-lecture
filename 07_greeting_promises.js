@@ -57,8 +57,8 @@ const getUser = () => {
   const user = arrSample(users);
   const error = errorSample();
 
-  console.log('Getting the user...');
   return new Promise((resolve, reject) => {
+    console.log('Getting the user...');
     setTimeout(() => {
       if (error) {
         reject(error);
@@ -71,7 +71,7 @@ const getUser = () => {
 
 // Select a random greeting after a delay (simulating a request to an API)
 // Sends back the error if any, otherwise sends back the greeting
-const getGreeting = () => {
+const getGreeting = (callback) => {
   const greetings = [
     'Hey',
     'Hi',
@@ -85,8 +85,9 @@ const getGreeting = () => {
   const greeting = arrSample(greetings);
   const error = errorSample();
 
-  console.log('Selecting a greeting...');
   return new Promise((resolve, reject) => {
+    console.log('Selecting a greeting...');
+
     setTimeout(() => {
       if (error) {
         reject(error);
@@ -105,25 +106,55 @@ const getGreeting = () => {
 // However, there for each call to getUser or getGreeting, there's possibility of an error
 // The error, if any, needs to be print out instead (ex. "My dog’s depressed.")
 
-// Make the appropriate calls to each function and handle any error using ** promises **
+// Make the appropriate calls to each function and handle any error
 
 const sayHello = () => {
-  let str = '';
 
-  getUser()
-    .then((userSays) => {
-      str = `${userSays} says `;
+  let helloStr = '';
 
-      return getGreeting();
+  Promise
+    .all([getUser(), getGreeting(), getUser()])
+    .then(results => {
+
+      const user1 = results[0];
+      const greeting = results[1];
+      const user2 = results[2];
+
+      console.log(`${user1} says: ${greeting} to ${user2}`)
+
     })
-    .then((greeting) => {
-      str += `${greeting}`;
-      return getUser();
-    })
-    .then((user) => {
-      console.log(`${str} ${user}`);
-    })
-    .catch((err) => console.log(err));
+    .catch(err => console.log(err));
+
+
+  // getUser()
+  //   .then(user1 => {
+
+  //     helloStr += `${user1} says: `;
+
+  //     return getGreeting();
+
+  //   })
+  //   .then(greeting => {
+
+  //     // access to greeting
+  //     helloStr += `${greeting}`;
+  //     return getUser();
+
+  //   })
+  //   .then(user2 => {
+  //     helloStr += ` ${user2}`;
+  //     // access to user 2
+
+  //     console.log(helloStr);
+
+  //   })
+  //   .catch(err => {
+
+  //     console.log(err);
+  //   })
+
+
+
 };
 
 sayHello();
