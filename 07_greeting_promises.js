@@ -108,6 +108,22 @@ const getGreeting = () => {
 // Make the appropriate calls to each function and handle any error using ** promises **
 
 const sayHello = () => {
+  let str = '';
+
+  getUser()
+    .then((userSays) => {
+      str = `${userSays} says `;
+
+      return getGreeting();
+    })
+    .then((greeting) => {
+      str += `${greeting}`;
+      return getUser();
+    })
+    .then((user) => {
+      console.log(`${str} ${user}`);
+    })
+    .catch((err) => console.log(err));
 };
 
 sayHello();

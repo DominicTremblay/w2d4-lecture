@@ -44,7 +44,16 @@ const errorSample = () => {
 // Select a random user after a delay (simulating a request to an API)
 // Sends back the error if any, otherwise sends back the user
 const getUser = (callback) => {
-  const users = ['Yoshi', 'Mario', 'Luigi', 'Peach','Bowser','Wario','Rosalina','Toadette'];
+  const users = [
+    'Yoshi',
+    'Mario',
+    'Luigi',
+    'Peach',
+    'Bowser',
+    'Wario',
+    'Rosalina',
+    'Toadette',
+  ];
   const user = arrSample(users);
   const error = errorSample();
 
@@ -61,7 +70,16 @@ const getUser = (callback) => {
 // Select a random greeting after a delay (simulating a request to an API)
 // Sends back the error if any, otherwise sends back the greeting
 const getGreeting = (callback) => {
-  const greetings = ['Hey', 'Hi', 'Yo', "What's Up",'Howdy','Hi-Ya','Howdy-Do','Bonjour'];
+  const greetings = [
+    'Hey',
+    'Hi',
+    'Yo',
+    "What's Up",
+    'Howdy',
+    'Hi-Ya',
+    'Howdy-Do',
+    'Bonjour',
+  ];
   const greeting = arrSample(greetings);
   const error = errorSample();
 
@@ -76,7 +94,6 @@ const getGreeting = (callback) => {
   }, 2000);
 };
 
-
 // sayHello sould return how a user is greeting another user
 // For example, the function could print out "Yoshi says: What's Up Mario"
 // If the greeting user and the greeted user are the same, the function needs to print a message like the following example: "Peach says Howdy to himself/herself"
@@ -88,6 +105,28 @@ const getGreeting = (callback) => {
 // Make the appropriate calls to each function and handle any error
 
 const sayHello = () => {
+  getUser((err, userSays) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+
+    getGreeting((err, greeting) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+
+      getUser((err, user) => {
+        if (err) {
+          console.log(err);
+          return;
+        }
+
+        console.log(`${userSays} says: ${greeting} ${user}`);
+      });
+    });
+  });
 };
 
 sayHello();

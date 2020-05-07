@@ -1,20 +1,23 @@
-const printName = name => {
+const faker = require('faker');
 
-  console.log("Name:", name);
+const getUser = (cb) => {
+  const user = {
+    userId: faker.random.uuid().substring(0, 6),
+    avatar: faker.image.avatar(),
+    name: faker.name.findName(),
+    email: faker.internet.email(),
+    catchPhrase: faker.company.catchPhrase(),
+  };
 
-  undeclared; // triggering an error
+  throw new Error('Could not get the user');
 
-}
-
-// printName('Sponge Bob'); // our code will crash
-
-// Exception handing allows for graceful execution without crashing our app
+  cb(user);
+};
 
 try {
-  printName('SpongeBob')
-} catch(err) {
-  console.log("Error:", err.message);
-  
+  getUser((user) => console.log(user));
+} catch (err) {
+  console.log(err);
 }
 
-console.log('Execution continues');
+console.log('Continue Execution...');
