@@ -43,7 +43,7 @@ const errorSample = () => {
 
 // Select a random user after a delay (simulating a request to an API)
 // Sends back the error if any, otherwise sends back the user
-const getUser = () => {
+const getUser = (callback) => {
   const users = [
     'Yoshi',
     'Mario',
@@ -58,20 +58,18 @@ const getUser = () => {
   const error = errorSample();
 
   console.log('Getting the user...');
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      if (error) {
-        reject(error);
-      } else {
-        resolve(user);
-      }
-    }, 2000);
-  });
+  setTimeout(() => {
+    if (error) {
+      callback(error);
+    } else {
+      callback(null, user);
+    }
+  }, 2000);
 };
 
 // Select a random greeting after a delay (simulating a request to an API)
 // Sends back the error if any, otherwise sends back the greeting
-const getGreeting = () => {
+const getGreeting = (callback) => {
   const greetings = [
     'Hey',
     'Hi',
@@ -86,15 +84,14 @@ const getGreeting = () => {
   const error = errorSample();
 
   console.log('Selecting a greeting...');
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      if (error) {
-        reject(error);
-      } else {
-        resolve(greeting);
-      }
-    }, 2000);
-  });
+
+  setTimeout(() => {
+    if (error) {
+      callback(error);
+    } else {
+      callback(null, greeting);
+    }
+  }, 2000);
 };
 
 // sayHello sould return how a user is greeting another user
@@ -105,25 +102,8 @@ const getGreeting = () => {
 // However, there for each call to getUser or getGreeting, there's possibility of an error
 // The error, if any, needs to be print out instead (ex. "My dog’s depressed.")
 
-// Make the appropriate calls to each function and handle any error using ** promises **
+// Make the appropriate calls to each function and handle any error
 
-const sayHello = () => {
-  let str = '';
-
-  getUser()
-    .then((userSays) => {
-      str = `${userSays} says `;
-
-      return getGreeting();
-    })
-    .then((greeting) => {
-      str += `${greeting}`;
-      return getUser();
-    })
-    .then((user) => {
-      console.log(`${str} ${user}`);
-    })
-    .catch((err) => console.log(err));
-};
+const sayHello = () => {};
 
 sayHello();

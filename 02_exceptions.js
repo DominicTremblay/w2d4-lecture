@@ -9,15 +9,11 @@ const getUser = (cb) => {
     catchPhrase: faker.company.catchPhrase(),
   };
 
-  throw new Error('Could not get the user');
+  // What happens if there is an error?
 
   cb(user);
 };
 
-try {
-  getUser((user) => console.log(user));
-} catch (err) {
-  console.log(err);
-}
+getUser((user) => console.log(user));
 
-console.log('Continue Execution...');
+console.log('Continuing Execution...');
