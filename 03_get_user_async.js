@@ -1,7 +1,6 @@
 const faker = require('faker');
 
 const getUser = (cb) => {
-
   setTimeout(() => {
 
     const user = {
@@ -11,18 +10,17 @@ const getUser = (cb) => {
       email: faker.internet.email(),
       catchPhrase: faker.company.catchPhrase(),
     };
-  
-    throw new Error('Could not get the user');
-  
+
+    // What happens if there is an error?
+    throw new Error('Could not get the user...');
+
     cb(user);
-
-  }, 1000);
-
-  
+  }, 2000);
 };
 
 try {
-  getUser((user) => console.log(user));
+  getUser(
+    (user) => console.log(user)); 
 } catch (err) {
   console.log(err);
 }
