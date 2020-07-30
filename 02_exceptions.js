@@ -10,10 +10,14 @@ const getUser = (cb) => {
   };
 
   // What happens if there is an error?
-
+  throw new Error('Cannot get the user');
   cb(user);
 };
-
-getUser((user) => console.log(user));
+// we need a try catch
+try {
+  getUser((user) => console.log(user));
+} catch (err) {
+  console.log(error);
+}
 
 console.log('Continuing Execution...');

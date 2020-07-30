@@ -103,7 +103,46 @@ const getGreeting = (callback) => {
 // The error, if any, needs to be print out instead (ex. "My dog’s depressed.")
 
 // Make the appropriate calls to each function and handle any error
+const sayHello = () => {
+  
 
-const sayHello = () => {};
+  let sentence = '';
+
+
+  getUser((error, user1) => {
+    if (error) {
+      console.log(error);
+      return;
+    }
+    // console.log(user);
+    sentence += `${user1} says: `;
+    // console.log(sentence);
+    getGreeting((error, greeting) => {
+      if (error) {
+        console.log(error);
+        return;
+      }
+      sentence += `${greeting} `;
+      // console.log(sentence);
+      // console.log(greeting);
+      getUser((error, user2) => {
+        if (error) {
+          console.log(error);
+          return;
+        }
+        // console.log(user);
+
+        if (user1 === user2) {
+          sentence += `to himself/herself`;
+        } else {
+          sentence += `${user2}!`;
+        }
+
+        // console.log(sentence);
+        return console.log(sentence);
+      });
+    });
+  });
+};
 
 sayHello();
