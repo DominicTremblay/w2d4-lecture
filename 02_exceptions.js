@@ -1,20 +1,6 @@
-const printName = name => {
+const printName = (name) => {
+  console.log('Name:', name);
+  // What happens if this function is throwing an error?
+};
 
-  console.log("Name:", name);
-
-  undeclared; // triggering an error
-
-}
-
-// printName('Sponge Bob'); // our code will crash
-
-// Exception handing allows for graceful execution without crashing our app
-
-try {
-  printName('SpongeBob')
-} catch(err) {
-  console.log("Error:", err.message);
-  
-}
-
-console.log('Execution continues');
+printName('Sponge Bob');

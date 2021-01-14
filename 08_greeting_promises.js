@@ -85,8 +85,8 @@ const getGreeting = () => {
   const greeting = arrSample(greetings);
   const error = errorSample();
 
-  console.log('Selecting a greeting...');
   return new Promise((resolve, reject) => {
+    console.log('Selecting a greeting...');
     setTimeout(() => {
       if (error) {
         reject(error);
@@ -108,6 +108,7 @@ const getGreeting = () => {
 // Make the appropriate calls to each function and handle any error using ** promises **
 
 const sayHello = () => {
+
 };
 
 sayHello();
