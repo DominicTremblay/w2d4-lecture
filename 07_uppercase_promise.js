@@ -1,6 +1,6 @@
 const upperCaseAsync = (inputStr) => {
   return new Promise((resolve, reject) => {
-    const error = false;
+    const error = true;
 
     setTimeout(() => {
       if (error) {
@@ -12,7 +12,18 @@ const upperCaseAsync = (inputStr) => {
   });
 };
 
-upperCaseAsync('Sponge Bob')
-  .then((upperCaseName) => (`Hello ${upperCaseName}`))
-  .then(hello => console.log(hello))
-  .catch((err) => console.log('Error:', err));
+// What is this returning? promise object
+
+upperCaseAsync("SpongeBob Squarepants")
+  .then((result) => {
+    // success
+    console.log(result);
+  })
+  .catch(function (err) {
+    console.log(`Error: ${err}`);
+  });
+
+// .catch((err) => {
+//   // failed
+//   console.log(`Error: ${err}`);
+// });

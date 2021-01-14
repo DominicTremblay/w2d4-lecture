@@ -108,7 +108,12 @@ const getGreeting = () => {
 // Make the appropriate calls to each function and handle any error using ** promises **
 
 const sayHello = () => {
-
+  Promise.all([getUser(), getGreeting(), getUser()])
+    .then((result) => {
+      console.log(result);
+      console.log(`${result[0]} says: ${result[1]} to: ${result[2]}`);
+    })
+    .catch((err) => console.log(err));
 };
 
 sayHello();

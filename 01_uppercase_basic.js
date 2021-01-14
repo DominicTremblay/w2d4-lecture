@@ -7,3 +7,4 @@ const upperCaseAsync = (inputStr, callback) => {
 upperCaseAsync('Sponge Bob', (upperCaseName) => console.log(upperCaseName));
 
 // What is going to be the output of the function execution?
+// SPONGE BOB

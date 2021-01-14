@@ -11,8 +11,11 @@ const upperCaseAsync = (inputStr, callback) => {
 
 // Trying try catch block
 
+
 try {
   upperCaseAsync('Sponge Bob', (upperCaseName) => console.log(upperCaseName));
 } catch(err) {
   console.log('Error:', err.message)
 }
+
+console.log("Continuing exection here")
