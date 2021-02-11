@@ -69,46 +69,46 @@ const getUser = () => {
   });
 };
 
-// Select a random greeting after a delay (simulating a request to an API)
-// Sends back the error if any, otherwise sends back the greeting
-const getGreeting = () => {
-  const greetings = [
-    'Hey',
-    'Hi',
-    'Yo',
-    "What's Up",
-    'Howdy',
-    'Hi-Ya',
-    'Howdy-Do',
-    'Bonjour',
+// Select a random meal after a delay (simulating a request to an API)
+// Sends back the error if any, otherwise sends back the meal
+const getOrder = () => {
+  const menu = [
+    'Burger',
+    'Poutine',
+    'Veggie Dogs',
+    'Sub',
+    'Pizza',
+    'Burrito',
+    'Burger Beyond Meat',
+    'Smoked Meat',
   ];
-  const greeting = arrSample(greetings);
+  const order = arrSample(menu);
   const error = errorSample();
 
   return new Promise((resolve, reject) => {
-    console.log('Selecting a greeting...');
+    console.log('Selecting a meal...');
     setTimeout(() => {
       if (error) {
         reject(error);
       } else {
-        resolve(greeting);
+        resolve(order);
       }
-    }, 2000);
+    }, 3000);
   });
 };
 
-// sayHello sould return how a user is greeting another user
-// For example, the function could print out "Yoshi says: What's Up Mario"
-// If the greeting user and the greeted user are the same, the function needs to print a message like the following example: "Peach says Howdy to himself/herself"
+// For example, the function could print out "Toadette takes the order of Rosalina"
+// and then "Toadette is delivering a Sub to Rosalina"
 
-// The users and the greeting need to be random each time by calling getUser and getGreeting
-// However, there for each call to getUser or getGreeting, there's possibility of an error
+
+// The users and the order need to be random each time by calling getUser and getOrder
+// However, there for each call to getUser or getOrder, there's possibility of an error
 // The error, if any, needs to be print out instead (ex. "My dog’s depressed.")
 
 // Make the appropriate calls to each function and handle any error using ** promises **
 
-const sayHello = () => {
+const placeOrder = () => {
 
 };
 
-sayHello();
+placeOrder();
