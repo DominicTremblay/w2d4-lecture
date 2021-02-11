@@ -5,7 +5,7 @@ const processOrder = (customer, callback) => {
   console.log(`${customer} orders a burger!`);
   setTimeout(() => {
     callback(`Burger ready for ${customer}`);
-    undeclared;
+    undeclared; // throws an error
   }, 3000);
 };
 
@@ -15,4 +15,4 @@ try {
   console.log(error.message);  
 }
 
-
+console.log('Sponge Bob eats the burger');
