@@ -5,4 +5,8 @@ const executorFct = (resolveFct, rejectFct) => {
 
 };
 
+// creating a promise object
+
+
+
 

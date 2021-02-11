@@ -1,6 +1,16 @@
-const printName = (name) => {
-  console.log('Name:', name);
-  // What happens if this function is throwing an error?
+const processOrder = (customer, callback) => {
+
+  // What happens if this functions throws an error?
+
+  console.log(`${customer} orders a burger!`);
+  undeclared;
+
+  // setTimeout(() => {
+  //   callback(`Burger ready for ${customer}`);
+  // }, 3000);
 };
 
-printName('Sponge Bob');
+processOrder('Sponge Bob', (message) => console.log(message));
+
+console.log('Sponge Bob eats the burger');
+
