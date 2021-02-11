@@ -1,10 +1,5 @@
 const processOrder = (customer, callback) => {
-
-  // What happens if this functions throws an error?
-
   console.log(`${customer} orders a burger!`);
-  undeclared; // will trhow an error
-
   setTimeout(() => {
     callback(`Burger ready for ${customer}`);
   }, 3000);
@@ -12,5 +7,4 @@ const processOrder = (customer, callback) => {
 
 processOrder('Sponge Bob', (message) => console.log(message));
 
-console.log('Sponge Bob eats the burger');
-
+// What is going to be the output of the function execution?
