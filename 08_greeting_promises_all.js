@@ -43,7 +43,7 @@ const errorSample = () => {
 
 // Select a random user after a delay (simulating a request to an API)
 // Sends back the error if any, otherwise sends back the user
-const getUser = (callback) => {
+const getUser = () => {
   const users = [
     'Yoshi',
     'Mario',
@@ -58,18 +58,20 @@ const getUser = (callback) => {
   const error = errorSample();
 
   console.log('Getting the user...');
-  setTimeout(() => {
-    if (error) {
-      callback(error);
-    } else {
-      callback(null, user);
-    }
-  }, 2000);
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(user);
+      }
+    }, 2000);
+  });
 };
 
 // Select a random meal after a delay (simulating a request to an API)
 // Sends back the error if any, otherwise sends back the meal
-const getOrder = (callback) => {
+const getOrder = () => {
   const menu = [
     'Burger',
     'Poutine',
@@ -83,18 +85,17 @@ const getOrder = (callback) => {
   const order = arrSample(menu);
   const error = errorSample();
 
-  console.log('Getting your order...');
-
-  setTimeout(() => {
-    if (error) {
-      callback(error);
-    } else {
-      callback(null, order);
-    }
-  }, 3000);
+  return new Promise((resolve, reject) => {
+    console.log('Selecting a meal...');
+    setTimeout(() => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(order);
+      }
+    }, 3000);
+  });
 };
-
-// placeOrder sould return how a waiter is delivering the order to the customer
 
 // For example, the function could print out "Toadette takes the order of Rosalina"
 // and then "Toadette is delivering a Sub to Rosalina"
@@ -103,42 +104,42 @@ const getOrder = (callback) => {
 // However, there for each call to getUser or getOrder, there's possibility of an error
 // The error, if any, needs to be print out instead (ex. "My dog’s depressed.")
 
-// Make the appropriate calls to each function and handle any error
-
-// Bonus:
-// If the names of the customer and the waiter are the same, the function needs to print a message like the following example: "Hey employees cannot order for themselves!"
+// Make the appropriate calls to each function and handle any error using ** promises **
 
 const placeOrder = () => {
-  // 1. call getUser => first user name
-  // 2. getOrder => get the meal
-  // 3. get user => second user
+  // functions are now promise
+  // getUser() => getOrder() => getUser()
 
-  getUser((err, user1) => {
-    // check if error or not
-    if (err) {
-      console.log('Error:', err);
-    } else {
-      // here I have access to user1
+  
+  Promise
+    .all([getUser(), getOrder(), getUser()])
+    .then(result => {
+      // result is an array
+      console.log(`${result[2]} gets a ${result[1]} from ${result[0]}`);
 
-      getOrder((err, meal) => {
-        if (err) {
-          console.log('Error:', err);
-        } else {
-          // within here, we have access to user1 and meal
+    })
+    .catch(err => console.log(err));
 
-          getUser((err, user2) => {
-            if (err) {
-              console.log('Error:', err);
-            } else {
-              // within here, we have access to user1 and meal and user 2
-              console.log(`${user1} is delivering a ${meal} to ${user2}`);
-              console.log(`${user1} is taking the order from ${user2}`);
-            }
-          });
-        }
-      });
-    }
-  });
+
+  // getUser()
+  //   .then((user1) => {
+  //     // access to user 1
+  //     username1 = user1;
+  //     return getOrder(); // pass it to the next .then
+  //   })
+  //   .then((meal) => {
+  //     // access to meal
+  //     selectedMeal = meal;
+  //     return getUser(); // pass it to the next .then
+  //   })
+  //   .then((user2) => {
+  //     // access to user2
+  //     username2 = user2;
+  //     console.log(
+  //       `${username2} has ordered a ${selectedMeal} from ${username1}`
+  //     );
+  //   })
+  //   .catch((err) => console.log(`Error: ${err}`));
 };
 
 placeOrder();
