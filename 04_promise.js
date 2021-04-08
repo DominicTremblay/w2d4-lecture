@@ -1,11 +1,8 @@
-const executorFct = (resolveFct, rejectFct) => {
+// "Success!😃"
+//"Failed!😖"
 
-  resolveFct("Success!😃")
-  rejectFct("Failed!😖")
 
-};
-
-// 1. creating a promise object
+// 1. creating a promise object that uses an executor function
 // 2. consuming the promise
 
 

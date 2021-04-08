@@ -109,32 +109,15 @@ const getOrder = () => {
 const placeOrder = () => {
   // here we simply need to consume the promises
 
-  
   // getUser()
   // .then(user1 => console.log(user1))
   // .catch(err=> console.log(err))
 
-
-  let usr1 = null;
-  let order = null;
-  let usr2 = null;
-
-  getUser()
-    .then((user1) => {
-      // success case
-      console.log(user1);
-      usr1 = user1;
-      return getOrder();
-    })
-    .then((meal) => {
-      console.log(meal);
-      order = meal;
-      return getUser();
-    })
-    .then((user2) => {
-      usr2 = user2;
-
-      console.log(`${usr1} is delivering a ${order} to ${usr2}`);
+  Promise.all([getUser(), getOrder(), getUser()])
+    .then((result) => {
+      console.log(
+        `${result[0]} is delivering the ${result[1]} to ${result[2]}`
+      );
     })
     .catch((err) => {
       // error case
