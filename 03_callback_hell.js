@@ -99,7 +99,6 @@ const getOrder = (callback) => {
 // For example, the function could print out "Toadette takes the order of Rosalina"
 // and then "Toadette is delivering a Sub to Rosalina"
 
-
 // The users and the order need to be random each time by calling getUser and getOrder
 // However, there for each call to getUser or getOrder, there's possibility of an error
 // The error, if any, needs to be print out instead (ex. "My dog’s depressed.")
@@ -110,6 +109,42 @@ const getOrder = (callback) => {
 // If the names of the customer and the waiter are the same, the function needs to print a message like the following example: "Hey employees cannot order for themselves!"
 
 const placeOrder = () => {
+  getUser((err, user1) => {
+    if (err) {
+      console.log(`Error: ${err}`);
+      return;
+    }
+
+    getOrder((err, meal) => {
+      if (err) {
+        console.log(`Error: ${err}`);
+        return;
+      }
+
+      getUser((err, user2) => {
+        if (err) {
+          console.log(`Error: ${err}`);
+          return;
+        }
+
+        // Edge case
+        if (user1 === user2) {
+          console.log('Waiter cannot serve themselves!');
+          return;
+        }
+
+        // we have access to user1, meal, user2 at the same time inhere
+        console.log(`${user1} has taken the order of ${user2}`);
+        console.log(`${user1} has delivered a ${meal} to ${user2}`);
+      });
+    });
+  });
+
+
+
+  
+
+
 
 };
 

@@ -9,6 +9,10 @@ const processOrder = (customer, callback) => {
   }, 3000);
 };
 
-processOrder('Sponge Bob', (message) => console.log(message));
+try {
+  processOrder('Sponge Bob', (message) => console.log(message));
+} catch (err) {
+  console.log('Sorry, burger burst into flammes!');
+}
 
 console.log('Sponge Bob waits for his burger...');
