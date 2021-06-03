@@ -1,0 +1,22 @@
+{
+  "name": "w2d4",
+  "version": "1.0.0",
+  "description": "## Content",
+  "main": "01_order_exception.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DominicTremblay/w2d4-lecture.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DominicTremblay/w2d4-lecture/issues"
+  },
+  "homepage": "https://github.com/DominicTremblay/w2d4-lecture#readme",
+  "dependencies": {
+    "request": "^2.88.2"
+  }
+}

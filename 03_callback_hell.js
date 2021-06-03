@@ -99,7 +99,6 @@ const getOrder = (callback) => {
 // For example, the function could print out "Toadette takes the order of Rosalina"
 // and then "Toadette is delivering a Sub to Rosalina"
 
-
 // The users and the order need to be random each time by calling getUser and getOrder
 // However, there for each call to getUser or getOrder, there's possibility of an error
 // The error, if any, needs to be print out instead (ex. "My dog’s depressed.")
@@ -110,7 +109,68 @@ const getOrder = (callback) => {
 // If the names of the customer and the waiter are the same, the function needs to print a message like the following example: "Hey employees cannot order for themselves!"
 
 const placeOrder = () => {
+  getUser((err, waiter) => {
+    if (err) {
+      console.log(`Error: ${err}`);
+    } else {
+      // success
+      console.log('success', waiter);
+      getOrder((err, meal) => {
+        if (err) {
+          console.log(`Error: ${err}`);
+        } else {
+          // success
+          console.log('success', meal);
+
+          getUser((err, customer) => {
+            // only inside this block do we have access to all three of them: waiter, meal, customer
+            if (err) {
+              console.log(`Error: ${err}`);
+            } else {
+              // success
+              console.log(`${waiter} takes the order of ${customer}`);
+              console.log(`${waiter} is delivering a ${meal} to ${customer}`);
+            }
+          });
+        }
+      });
+    }
+  });
+};
+
+placeOrder2 = () => {
+  let waiter = null;
+  let meal = null;
+  let customer = null;
+
+  getUser((err, user1) => {
+    if (err) {
+      console.log(err);
+    } else {
+      waiter = user1;
+    }
+  });
+
+  getOrder((err, order) => {
+    if (err) {
+      console.log(err);
+    } else {
+      meal = order;
+    }
+  });
+
+  getUser((err, user2) => {
+    if (err) {
+      console.log(err);
+    } else {
+      customer = user2;
+    }
+  });
+
+  console.log(`${waiter} takes the order of ${customer}`);
+  console.log(`${waiter} is delivering a ${meal} to ${customer}`);
 
 };
 
 placeOrder();
+// placeOrder2();
