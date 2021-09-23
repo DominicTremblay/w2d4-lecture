@@ -54,15 +54,15 @@ const getUser = (callback) => {
     'Rosalina',
     'Toadette',
   ];
-  const user = arrSample(users);
-  const error = errorSample();
+  const user = arrSample(users); //mario
+  const error = errorSample(); // coming as null (no error) or we get a string (error)
 
   console.log('Getting the user...');
   setTimeout(() => {
     if (error) {
-      callback(error);
+      callback(error, null); // we got an error
     } else {
-      callback(null, user);
+      callback(null, user); // we dont get an error, we pass the user
     }
   }, 2000);
 };
@@ -99,7 +99,6 @@ const getOrder = (callback) => {
 // For example, the function could print out "Toadette takes the order of Rosalina"
 // and then "Toadette is delivering a Sub to Rosalina"
 
-
 // The users and the order need to be random each time by calling getUser and getOrder
 // However, there for each call to getUser or getOrder, there's possibility of an error
 // The error, if any, needs to be print out instead (ex. "My dog’s depressed.")
@@ -110,7 +109,53 @@ const getOrder = (callback) => {
 // If the names of the customer and the waiter are the same, the function needs to print a message like the following example: "Hey employees cannot order for themselves!"
 
 const placeOrder = () => {
+  // "Toadette takes the order of Rosalina"
+  // and then "Toadette is delivering a Sub to Rosalina"
 
+  const waiter = getUser((error, waiter) => {
+    if (error) {
+      console.log(`Error: ${error}`);
+      return;
+    }
+  });
+
+  const customer = getUser((error, customer) => {
+    if (error) {
+      console.log(`Error: ${error}`);
+      return;
+    }
+  });
+
+  console.log(`${waiter} takes the order of ${customer}`);
+
+  getUser((error, waiter) => {
+    // having 2 parameters allow us to distinguish between error and user
+    if (error) {
+      console.log(`Error: ${error}`);
+      return;
+    }
+    console.log({ first_call: waiter });
+
+    getUser((error, customer) => {
+      if (error) {
+        console.log(`Error: ${error}`);
+        return;
+      }
+
+      console.log({ second_call: customer });
+      console.log(`${waiter} takes the order of ${customer}`);
+
+      getOrder((error, meal) => {
+        if (error) {
+          console.log(`Error: ${error}`);
+          return;
+        }
+        console.log({ meal });
+
+        console.log(`${waiter} is delivering a ${meal} to ${customer}`);
+      });
+    });
+  }); //=> username
 };
 
 placeOrder();

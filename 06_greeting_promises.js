@@ -100,7 +100,6 @@ const getOrder = () => {
 // For example, the function could print out "Toadette takes the order of Rosalina"
 // and then "Toadette is delivering a Sub to Rosalina"
 
-
 // The users and the order need to be random each time by calling getUser and getOrder
 // However, there for each call to getUser or getOrder, there's possibility of an error
 // The error, if any, needs to be print out instead (ex. "My dog’s depressed.")
@@ -108,7 +107,21 @@ const getOrder = () => {
 // Make the appropriate calls to each function and handle any error using ** promises **
 
 const placeOrder = () => {
+  Promise.all([getUser(), getOrder(), getUser()])
+    .then((result) => {
+      const waiter = result[0];
+      const meal = result[1];
+      const customer = result[2];
 
+      return { waiter, meal, customer };
+    })
+    .then((users) => {
+      console.log(`${users.waiter} takes the order of ${users.customer}`);
+      console.log(
+        `${users.waiter} is delivering a ${users.meal} to ${users.customer}`
+      );
+    })
+    .catch((err) => console.log(err));
 };
 
 placeOrder();
