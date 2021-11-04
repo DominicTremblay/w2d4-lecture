@@ -1,5 +1,3 @@
-// const processOrder = require('./processOrder');
-
 const processOrder = (customer) => {
   console.log(`${customer} orders a burger!`);
 
@@ -19,9 +17,4 @@ const processOrder = (customer) => {
   return promiseObj;
 };
 
-
-processOrder('Sponge Bob')
-  .then((message) => console.log(message))
-  .catch((err) => console.log(err));
-
-
+module.exports = processOrder;
