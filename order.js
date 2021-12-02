@@ -9,6 +9,4 @@ const processOrder = (customer, callback) => {
   }, 3000);
 };
 
-processOrder('Sponge Bob', message=> console.log(message));
-
-console.log('Sponge Bob waits for his burger...');
+module.exports = processOrder;

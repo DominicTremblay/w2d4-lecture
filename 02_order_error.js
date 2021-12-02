@@ -1,15 +1,30 @@
-const processOrder = (customer) => {
-  const start = Date.now();
+const processOrder = (customer, callback) => {
+  // simulate an error
+
+  // const error = `Oh no! ${customer}'s juicy burger burst into flammes!`;
+  const error = '';
+
   console.log(`${customer} orders a big juicy burger!`);
 
+  // async operation (API call, writing to file)
   setTimeout(() => {
-    const timer = (Date.now() - start) / 1000;
-    console.log(`${customer}\'s big juicy burger is ready!`);
-    console.log(`It took ${timer} seconds!`);
-    
+    if (error) {
+      callback(error, null);
+      return; // exit the function
+    }
+    callback(null, `${customer}\' big juicy burger is ready!`);
   }, 3000);
+
 };
 
-processOrder('Sponge Bob');
+// start execution here
+processOrder('Sponge Bob', (error, message) => {
+  if (error) {
+    console.log(`Error: ${error}`);
+    return;
+  }
+
+  console.log(`Everything ok: ${message}`);
+});
 
 console.log('Sponge Bob waits for his burger...');
