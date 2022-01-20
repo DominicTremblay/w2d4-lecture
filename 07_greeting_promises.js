@@ -43,7 +43,7 @@ const errorSample = () => {
 
 // Select a random user after a delay (simulating a request to an API)
 // Sends back the error if any, otherwise sends back the user
-const getUser = (callback) => {
+const getUser = () => {
   const users = [
     'Yoshi',
     'Mario',
@@ -55,21 +55,23 @@ const getUser = (callback) => {
     'Toadette',
   ];
   const user = arrSample(users);
-  const error = errorSample(); // null or a string (random)
+  const error = errorSample();
 
   console.log('Getting the user...');
-  setTimeout(() => {
-    if (error) {
-      callback(error);
-    } else {
-      callback(null, user);
-    }
-  }, 2000);
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(user);
+      }
+    }, 2000);
+  });
 };
 
 // Select a random meal after a delay (simulating a request to an API)
 // Sends back the error if any, otherwise sends back the meal
-const getOrder = (callback) => {
+const getOrder = () => {
   const menu = [
     'Burger',
     'Poutine',
@@ -83,18 +85,17 @@ const getOrder = (callback) => {
   const order = arrSample(menu);
   const error = errorSample();
 
-  console.log('Getting your order...');
-
-  setTimeout(() => {
-    if (error) {
-      callback(error);
-    } else {
-      callback(null, order);
-    }
-  }, 3000);
+  return new Promise((resolve, reject) => {
+    console.log('Selecting a meal...');
+    setTimeout(() => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(order);
+      }
+    }, 3000);
+  });
 };
-
-// placeOrder sould return how a waiter is delivering the order to the customer
 
 // For example, the function could print out "Toadette takes the order of Rosalina"
 // and then "Toadette is delivering a Sub to Rosalina"
@@ -103,40 +104,43 @@ const getOrder = (callback) => {
 // However, there for each call to getUser or getOrder, there's possibility of an error
 // The error, if any, needs to be print out instead (ex. "My dog’s depressed.")
 
-// Make the appropriate calls to each function and handle any error
-
-// Bonus:
-// If the names of the customer and the waiter are the same, the function needs to print a message like the following example: "Hey employees cannot order for themselves!"
+// Make the appropriate calls to each function and handle any error using ** promises **
 
 const placeOrder = () => {
-  // we need a waiter and a customer => getUser()
+  // Promise.all
 
-  getUser((error, waiter) => {
-    // check if there was an error
-    if (error) {
-      console.log(`Error: ${error}`);
-      return;
-    }
+  let waiter = null;
+  let meal = null;
+  let customer = null;
 
-    // we need the meal => getOrder()
-    getOrder((error, meal) => {
-      if (error) {
-        console.log(`Error: ${error}`);
-        return;
-      }
+  getUser()
+    .then((user1) => {
+      waiter = user1;
 
-      getUser((error, customer) => {
-        // check if there was an error
-        if (error) {
-          console.log(`Error: ${error}`);
-          return;
-        }
+      return getOrder();
+    })
+    .then((order) => {
+      meal = order;
+      return getUser();
+    })
+    .then((user2) => {
+      customer = user2;
+      console.log(`${waiter} is taking the order of ${customer}`);
+      console.log(`${waiter} is delivering a ${meal} to ${customer}`);
+    })
+    .catch((error) => console.log(error));
 
-        console.log(`${waiter} is taking the order of ${customer}`);
-        console.log(`${waiter} is delivering a ${meal} to ${customer}`);
-      });
-    });
-  });
+  // Promise.all([getUser(), getOrder(), getUser()])
+  //   .then((result) => {
+  //     const waiter = result[0];
+  //     const meal = result[1];
+  //     const customer = result[2];
+
+  //     console.log(`${waiter} is taking the order of ${customer}`);
+  //     console.log(`${waiter} is delivering a ${meal} to ${customer}`);
+
+  //   })
+  //   .catch((error) => console.log(`Error: ${error}`));
 };
 
 placeOrder();
