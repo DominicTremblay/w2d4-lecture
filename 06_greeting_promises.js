@@ -109,6 +109,22 @@ const getOrder = () => {
 
 const placeOrder = () => {
 
+  Promise
+    .all([getUser(), getOrder(), getUser()])
+    .then(result => {
+
+      // const waiter = result[0];
+      // const meal = result[1];
+      // const customer = result[2];
+
+      const [waiter, meal, customer] = result;
+
+      console.log(`${waiter} takes the order of ${customer}`);
+      console.log(`${waiter} is delivering the ${meal} to ${customer}`);
+
+    })
+    .catch(error => console.log(`Error: ${error}`));
+
 };
 
 placeOrder();
