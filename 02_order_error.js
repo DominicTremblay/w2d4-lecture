@@ -1,15 +1,25 @@
-const processOrder = (customer) => {
-  const start = Date.now();
-  console.log(`${customer} orders a big juicy burger!`);
+const processOrder = (customer, callback) => {
+  // const error = `oh ${customer}'s burger has burst into flammes!`;
+  // const error = '';
 
   setTimeout(() => {
-    const timer = (Date.now() - start) / 1000;
-    console.log(`${customer}\'s big juicy burger is ready!`);
-    console.log(`It took ${timer} seconds!`);
-    
+    // 2
+    if (error) {
+      callback(error, null);
+      return;
+    }
+    // only this statement is asynchronous
+    callback(error, `${customer} big juicy burger is ready!`); //skip => later
   }, 3000);
 };
 
-processOrder('Sponge Bob');
+processOrder('Sponge Bob', (error, msg) => {
+  if (error) {
+    console.log(`Error: ${error}`);
+    return;
+  }
 
-console.log('Sponge Bob waits for his burger...');
+  console.log(`success: ${msg}`);
+}); //1
+
+console.log('Sponge Bob waits for his burger...'); // 3
