@@ -1,6 +1,8 @@
 // Using multiple callbacks
 // Error handling with callbacks
 
+const { name } = require('ejs');
+
 // Returns a random element from an array
 const arrSample = (list) => {
   const index = Math.floor(Math.random() * list.length);
@@ -99,7 +101,6 @@ const getOrder = (callback) => {
 // For example, the function could print out "Toadette takes the order of Rosalina"
 // and then "Toadette is delivering a Sub to Rosalina"
 
-
 // The users and the order need to be random each time by calling getUser and getOrder
 // However, there for each call to getUser or getOrder, there's possibility of an error
 // The error, if any, needs to be print out instead (ex. "My dog’s depressed.")
@@ -110,7 +111,40 @@ const getOrder = (callback) => {
 // If the names of the customer and the waiter are the same, the function needs to print a message like the following example: "Hey employees cannot order for themselves!"
 
 const placeOrder = () => {
+  // getUser => get a random name, custmer or waiter
+  // getOrder => random meal
 
+  // provide a random user name or an error message
+  getUser((errMsg, waiterName) => {
+    if (errMsg) {
+      console.log(`Error: ${errMsg}`);
+      return;
+    }
+
+    getOrder((errMsg, meal) => {
+      if (errMsg) {
+        console.log(`Error: ${errMsg}`);
+        return;
+      }
+
+      // here we have access to both waiterName and meal
+
+      getUser((errMsg, customerName) => {
+        if (errMsg) {
+          console.log(`Error: ${errMsg}`);
+          return;
+        }
+        // here we have access to all: waiterName and meal and customerName
+
+        // "Toadette takes the order of Rosalina"
+        // and then "Toadette is delivering a Sub to Rosalina"
+
+        console.log(`${waiterName}  takes the order of ${customerName}`);
+
+        console.log(`${waiterName} is delivering a ${meal} to ${customerName}`);
+      });
+    });
+  });
 };
 
 placeOrder();

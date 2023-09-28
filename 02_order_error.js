@@ -1,15 +1,27 @@
-const processOrder = (customer) => {
-  const start = Date.now();
-  console.log(`${customer} orders a big juicy burger!`);
+const processOrder = function (customer, cb) {
+  const time = Math.floor(Math.random() * 5000); // 3
+  const error = false;
 
+  // asyc operations
   setTimeout(() => {
-    const timer = (Date.now() - start) / 1000;
-    console.log(`${customer}\'s big juicy burger is ready!`);
-    console.log(`It took ${timer} seconds!`);
-    
-  }, 3000);
+    if (error) {
+      cb(error, `${customer}'s big juicy burger bursts into flammes!`);
+    } else {
+      cb(
+        error, `${customer}'s big juicy burger is ready!. It took ${time / 1000} secs`
+      ); // 5
+    }
+  }, time);
 };
 
-processOrder('Sponge Bob');
+console.log('SpongeBob orders a burger');
 
-console.log('Sponge Bob waits for his burger...');
+processOrder('SpongeBob', (errorMsg, msg) => {
+  if (errorMsg) {
+    console.log(`Error: ${msg}`);
+  } else {
+    console.log(`Success! ${msg}`);
+  }
+});
+
+console.log('SpongeBob waits for his burger...');
